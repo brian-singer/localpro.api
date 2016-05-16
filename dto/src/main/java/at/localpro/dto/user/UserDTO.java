@@ -1,28 +1,13 @@
 package at.localpro.dto.user;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-
-import com.wordnik.swagger.annotations.ApiModelProperty;
-
+import at.localpro.domain.user.LoginSystem;
 import at.localpro.dto.common.BaseDTO;
 
 public class UserDTO extends BaseDTO {
 
-	@NotBlank
-	@Size(min = 1, max = 64)
 	private String firstName;
-	@NotBlank
-	@Size(min = 1, max = 64)
 	private String lastName;
-	@Email
 	private String email;
-
-	@ApiModelProperty(dataType = "string")
-	@NotNull
 	private LoginSystem loginType;
 
 	public String getFirstName() {

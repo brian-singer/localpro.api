@@ -17,14 +17,12 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 
 import at.localpro.dto.LocalProDTO;
 
 @Validated
-@Component
 public class RestClient {
 
 	@Autowired
@@ -101,6 +99,19 @@ public class RestClient {
 		log.info("Request url: {} using POST method", urlBuilder.toString());
 		URI uri = template.postForLocation(urlBuilder.toString(), object);
 		return uri;
+	}
+
+	public void put(@NotEmpty String uriObject, @NotNull Object object, Object... uriParameters) {
+		StringBuilder urlBuilder = new StringBuilder(serverUrl);
+		String putUri;
+		if (uriParameters == null) {
+			putUri = uriObject;
+		} else {
+			putUri = UriBuilder.fromPath(uriObject).build(uriParameters).toString();
+		}
+		urlBuilder.append(putUri);
+		log.info("Request url: {} using PUT method", urlBuilder.toString());
+		template.put(urlBuilder.toString(), object);
 	}
 
 	static protected HttpHeaders createHeaderJsonType() {

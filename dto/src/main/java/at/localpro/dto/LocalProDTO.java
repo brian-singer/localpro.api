@@ -1,10 +1,5 @@
 package at.localpro.dto;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-
-import com.wordnik.swagger.annotations.ApiParam;
-
 import at.localpro.dto.common.BaseAuditDTO;
 import at.localpro.dto.profile.ProfileDTO;
 import at.localpro.dto.user.UserDTO;
@@ -14,12 +9,8 @@ import at.localpro.dto.user.UserDTO;
  */
 public class LocalProDTO extends BaseAuditDTO {
 
-	@NotNull
-	@Valid
-	@ApiParam(required = true)
 	private UserDTO user;
 
-	@Valid
 	private ProfileDTO profile;
 
 	public UserDTO getUser() {

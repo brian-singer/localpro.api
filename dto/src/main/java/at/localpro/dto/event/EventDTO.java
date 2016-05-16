@@ -1,13 +1,13 @@
 package at.localpro.dto.event;
 
 import javax.validation.constraints.NotNull;
-import javax.xml.stream.Location;
 
 import org.joda.time.DateTime;
 
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
-import at.localpro.dto.Sport;
+import at.localpro.domain.Sport;
+import at.localpro.domain.event.Location;
 import at.localpro.dto.common.BaseDTO;
 
 public class EventDTO extends BaseDTO {

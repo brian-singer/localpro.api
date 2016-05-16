@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import at.localpro.ILocalPro;
-import at.localpro.dto.LocalProDTO;
+import at.localpro.dto.CreateLocalProReqestDTO;
 import at.localpro.external.client.rest.Request;
 import at.localpro.external.client.rest.RestClient;
 
@@ -26,7 +26,7 @@ public class LocalProRestClient implements ILocalPro {
 	}
 
 	@Override
-	public Object add(LocalProDTO localPro) {
+	public Object add(CreateLocalProReqestDTO localPro) {
 		// @formatter:off
 		return Response.status(Status.CREATED).location(
 				client.post(Request.LOCAL_PROS.getUri(), localPro)).build();

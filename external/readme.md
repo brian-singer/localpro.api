@@ -2,39 +2,25 @@
 
 ### Main Repository
 
-git clone [https://github.com/brian-singer/local.pro.git](https://github.com/brian-singer/localpro.git)
+git clone [https://github.com/brian-singer/localpro.api.git](https://github.com/brian-singer/localpro.api.git)
 
-### External Rest Spring Project for angular.js and Webservice Implementations
+### External Rest Spring Project Webservice Implementations
 
 #### Interfaces
 
-[LocalPro](https://github.com/brian-singer/localpro/blob/master/external/src/main/java/at/localpro/ILocalPro.java)
+[LocalPro](https://github.com/brian-singer/localpro.api/blob/master/external/src/main/java/at/localpro/ILocalPro.java)
 
-[Events](https://github.com/brian-singer/localpro/blob/master/external/src/main/java/at/localpro/IEvent.java)
+[Events](https://github.com/brian-singer/localpro.api/blob/master/external/src/main/java/at/localpro/IEvent.java)
 
-[Profile](https://github.com/brian-singer/localpro/blob/master/external/src/main/java/at/localpro/IProfile.java)
+[Profile](https://github.com/brian-singer/localpro.api/blob/master/external/src/main/java/at/localpro/IProfile.java)
 
 ### Setup
 
 ###### In the rest project configure the application entry:
 
+[Configuration](https://github.com/brian-singer/localpro.api/blob/master/external/src/main/java/at/localpro/configuration/ClientServiceConfiguration.java)
+
 ```java
 @Configuration
-@Import({
-	LocalProProperties.class,
-	ProviderConfiguration.class,
-	RestClientConfiguration.class,
-	ClientServiceConfiguration.class
-})
-public class ApplicationConfiguration {
-
-}
+@Import(ClientServiceConfiguration)
 ```
-
-###### Usage
-
-Install a minimum of Tomcat7 and Java7
-> Start the Server
-
-Once the server is running
-> Access API swagger documentation: [Swag](http://localhost:8080/rest/swag/)

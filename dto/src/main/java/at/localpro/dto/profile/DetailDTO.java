@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 import com.wordnik.swagger.annotations.ApiModelProperty;
 
-import at.localpro.dto.Sport;
+import at.localpro.domain.Sport;
 
 public class DetailDTO {
 

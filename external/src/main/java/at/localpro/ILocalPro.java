@@ -19,6 +19,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
+import at.localpro.dto.CreateLocalProReqestDTO;
 import at.localpro.dto.LocalProDTO;
 
 @Api(value = ILocalPro.V1_LOCALPROS)
@@ -76,6 +77,6 @@ public interface ILocalPro {
 	@POST
 	@Path(V1_LOCALPROS)
 	@Consumes(MediaType.APPLICATION_JSON)
-	Object add(@NotNull @Valid LocalProDTO localPro);
+	Object add(@NotNull @Valid CreateLocalProReqestDTO localPro);
 
 }

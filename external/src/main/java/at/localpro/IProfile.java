@@ -5,11 +5,12 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.wordnik.swagger.annotations.Api;
 import com.wordnik.swagger.annotations.ApiOperation;
@@ -45,29 +46,29 @@ public interface IProfile {
 	Object get(
 			@PathParam(value = "id") @Size(min = 20, max = 25) String localProId);
 
-	@ApiOperation(value = "Post a profile")
+	@ApiOperation(value = "Put a profile")
 	@ApiResponses({
-		@ApiResponse(code = 201, message = "resource created"),
+		@ApiResponse(code = 201, message = "Resource created"),
 		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
 		@ApiResponse(code = 404, message = "error:404, cause:Existing localpro not found", response = Error.class),
 		@ApiResponse(code = 500, message = "error:500, cause:Unknown error occured", response = Error.class) })
-	@POST
+	@PUT
 	@Path(V1_LOCALPRO_PROFILE)
 	@Consumes(MediaType.APPLICATION_JSON)
-	Object addProfile(
+	Response addProfile(
 		@PathParam(value = "id") @Size(min = 20, max = 25) String localProId,
 		@NotNull @Valid ProfileRequestDTO profile);
 
-	@ApiOperation(value = "Post a profile detail")
+	@ApiOperation(value = "Put a profile detail")
 	@ApiResponses({
-		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 201, message = "Resource created"),
 		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
 		@ApiResponse(code = 404, message = "error:404, cause:Existing profile not found", response = Error.class),
 		@ApiResponse(code = 500, message = "error:500, cause:Unknown error occured", response = Error.class) })
-	@POST
+	@PUT
 	@Path(V1_LOCALPRO_DETAILS)
 	@Consumes(MediaType.APPLICATION_JSON)
-	Object addProfileDetail(
+	Response addProfileDetail(
 			@PathParam(value = "id") @Size(min = 20, max = 25) String localProId,
 			@NotNull @Valid DetailRequestDTO detail);
 }

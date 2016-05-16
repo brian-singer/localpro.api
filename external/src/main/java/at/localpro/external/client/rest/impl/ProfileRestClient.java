@@ -2,7 +2,6 @@ package at.localpro.external.client.rest.impl;
 
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import at.localpro.dto.profile.DetailRequestDTO;
 import at.localpro.dto.profile.ProfileRequestDTO;
 import at.localpro.external.client.rest.Request;
 import at.localpro.external.client.rest.RestClient;
+import at.localpro.rest.util.RestUtil;
 
 @WebService
 @Service
@@ -26,19 +26,15 @@ public class ProfileRestClient implements IProfile {
 	}
 
 	@Override
-	public Object addProfile(String localProId, ProfileRequestDTO profile) {
-		// @formatter:off
-		return Response.status(Status.CREATED).location(
-				client.post(Request.PROFILE.getUri(), profile, localProId)).build();
-		// @formatter:on
+	public Response addProfile(String localProId, ProfileRequestDTO profile) {
+		client.put(Request.PROFILE.getUri(), profile, localProId);
+		return RestUtil.createResourceCreatedResponse("/v1/localpros/" + localProId + "/" + "profile");
 	}
 
 	@Override
-	public Object addProfileDetail(String localProId, DetailRequestDTO detail) {
-		// @formatter:off
-		return Response.status(Status.CREATED).location(
-				client.post(Request.PROFILE_DETAIL.getUri(), detail, localProId)).build();
-		// @formatter:on
+	public Response addProfileDetail(String localProId, DetailRequestDTO detail) {
+		client.put(Request.PROFILE_DETAIL.getUri(), detail, localProId);
+		return RestUtil.createResourceCreatedResponse("/v1/localpros/" + localProId + "/" + "profile");
 	}
 
 }
