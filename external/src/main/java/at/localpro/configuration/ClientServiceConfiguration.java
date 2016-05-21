@@ -57,12 +57,4 @@ public class ClientServiceConfiguration {
 		return processor;
 	}
 
-	@Bean
-	public MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter() {
-		MappingJackson2HttpMessageConverter result = new MappingJackson2HttpMessageConverter();
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new JodaModule());
-		result.setObjectMapper(mapper);
-		return result;
-	}
 }
