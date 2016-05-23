@@ -22,8 +22,7 @@ import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
 import at.localpro.dto.error.Error;
-import at.localpro.dto.event.EventListingDTO;
-import at.localpro.dto.event.SingleEventDTO;
+import at.localpro.dto.event.EventDTO;
 
 @Api(value = IEvent.V1_EVENTS)
 public interface IEvent {
@@ -40,7 +39,7 @@ public interface IEvent {
 	public static final String V1_LOCAL_PRO_EVENTS_ID = ILocalPro.VERSION + ILocalPro.PROS + ID_REPLACE + EVENTS;
 
 	// @formatter:off
-	@ApiOperation(value = "Get the event by id", response = SingleEventDTO.class)
+	@ApiOperation(value = "Get the event by id", response = EventDTO.class)
 	@ApiResponses({ 
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
@@ -51,7 +50,7 @@ public interface IEvent {
 	@Produces(MediaType.APPLICATION_JSON)
 	Object get(@PathParam(value = "id") @Size(min = 20, max = 25) String eventId);
 
-	@ApiOperation(value = "Get all events by localpro id", response = EventListingDTO.class)
+	@ApiOperation(value = "Get all events by localpro id", response = EventDTO.class)
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
@@ -71,9 +70,9 @@ public interface IEvent {
 	@POST
 	@Path(V1_EVENTS)
 	@Consumes(MediaType.APPLICATION_JSON)
-	Object add(@NotNull @Valid SingleEventDTO event);
+	Object add(@NotNull @Valid EventDTO event);
 
-	@ApiOperation(value = "Get the events by date query filter and optional location filter", response = EventListingDTO.class)
+	@ApiOperation(value = "Get the events by date query filter and optional location filter", response = EventDTO.class)
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),

@@ -1,6 +1,7 @@
 package at.localpro.dto.event;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import org.joda.time.DateTime;
 
@@ -10,9 +11,12 @@ import at.localpro.domain.Sport;
 import at.localpro.domain.event.Location;
 import at.localpro.dto.common.BaseDTO;
 
+/**
+ * LocalPro Event. All rights reserved.
+ */
 public class EventDTO extends BaseDTO {
 
-	@ApiModelProperty(hidden = true)
+	@Size(min = 20, max = 25)
 	private String localProId;
 
 	@NotNull

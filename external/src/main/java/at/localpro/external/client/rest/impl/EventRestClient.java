@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import at.localpro.IEvent;
-import at.localpro.dto.event.SingleEventDTO;
+import at.localpro.dto.event.EventDTO;
 import at.localpro.external.client.rest.Request;
 import at.localpro.external.client.rest.RestClient;
 
@@ -34,7 +34,7 @@ public class EventRestClient implements IEvent {
 	}
 
 	@Override
-	public Object add(SingleEventDTO localProEvent) {
+	public Object add(EventDTO localProEvent) {
 		// @formatter:off
 		return Response.status(Status.CREATED).location(
 				client.post(Request.EVENTS.getUri(), localProEvent)).build();

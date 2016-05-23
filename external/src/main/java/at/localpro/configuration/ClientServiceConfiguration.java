@@ -2,19 +2,19 @@ package at.localpro.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
-
 import at.localpro.external.client.rest.RestClient;
+import at.localpro.external.client.rest.impl.LocalProRestClient;
 import at.localpro.external.client.service.RestHandler;
 
 @Configuration
+@ComponentScan(basePackageClasses = LocalProRestClient.class)
 public class ClientServiceConfiguration {
 
 	@Value("${external.request.timeout}")
