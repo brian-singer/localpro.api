@@ -34,6 +34,7 @@ public interface IUser {
 	static final String USERS = "users";
 	static final String V1_SEARCH = IUser.VERSION + IUser.USERS + "/search";
 	static final String ID = V1_USERS + "/{id}";
+	public static final String V1_LOGIN = ID + "/login";
 
 	// @formatter:off
 	@ApiOperation(value = "Get the user by id", response = UserDTO.class)
@@ -88,8 +89,9 @@ public interface IUser {
 		@ApiResponse(code = 404, message = "error:404, cause:Existing localpro not found", response = Error.class),
 		@ApiResponse(code = 500, message = "error:500, cause:Unknown error occured", response = Error.class) })
 	@PUT
-	@Path(ID)
+	@Path(V1_LOGIN)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
 	Object login(
 		@PathParam(value = "id") @Size(min = 20, max = 25) String userId,
 		@NotNull @Valid LoginRequestDTO loginRequest);

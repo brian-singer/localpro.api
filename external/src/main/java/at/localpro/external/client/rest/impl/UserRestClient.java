@@ -44,8 +44,8 @@ public class UserRestClient implements IUser {
 
 	@Override
 	public Object login(String userId, LoginRequestDTO loginRequest) {
-		client.put(Request.GET_USER.getUri(), loginRequest, userId);
-		return client.getByUri(Request.GET_USER.getUri(), userId);
+		client.put(Request.LOGIN.getUri(), loginRequest, userId);
+		return client.getByUri(Request.LOGIN.getUri(), userId);
 	}
 
 }
