@@ -6,12 +6,14 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.collections4.keyvalue.DefaultMapEntry;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
 import at.localpro.IUser;
 import at.localpro.dto.user.ChangePasswordRequestDTO;
 import at.localpro.dto.user.CreateUserRequestDTO;
-import at.localpro.dto.user.LoginRequestDTO;
+import at.localpro.dto.user.UserLoginRequestDTO;
+import at.localpro.dto.user.UserDTO;
 import at.localpro.external.client.rest.Request;
 import at.localpro.external.client.rest.RestClient;
 
@@ -34,24 +36,26 @@ public class UserRestClient implements IUser {
 
 	@Override
 	public Object getByEmail(String email) {
-		return client.queryUnique(Request.USERS.getUri(), new DefaultMapEntry<String, String>("email", email));
+		return client.queryUnique(Request.USERS.getUri(), new DefaultMapEntry<String, String>("email", email),
+				new ParameterizedTypeReference<UserDTO>() {
+				});
 	}
 
 	@Override
 	public Object add(CreateUserRequestDTO user) {
-		return Response.status(Status.CREATED).location(
-				client.post(Request.USERS.getUri(), user)).build();
+		return Response.status(Status.CREATED).location(client.post(Request.USERS.getUri(), user)).build();
 	}
 
 	@Override
-	public Object login(String userId, LoginRequestDTO loginRequest) {
+	public Object login(String userId, UserLoginRequestDTO loginRequest) {
 		client.put(Request.LOGIN.getUri(), loginRequest, userId);
-		return client.getByUri(Request.LOGIN.getUri(), userId);
+		return client.getByUri(Request.GET_USER.getUri(), userId);
 	}
 
 	@Override
-	public void changePassword(String userId, ChangePasswordRequestDTO changePasswordRequest) {
+	public Response changePassword(String userId, ChangePasswordRequestDTO changePasswordRequest) {
 		client.put(Request.CHANGE_PASSWORD.getUri(), changePasswordRequest, userId);
+		return Response.ok().build();
 	}
 
 }

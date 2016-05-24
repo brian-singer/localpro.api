@@ -12,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.hibernate.validator.constraints.Email;
 
@@ -22,7 +23,7 @@ import com.wordnik.swagger.annotations.ApiResponses;
 
 import at.localpro.dto.user.ChangePasswordRequestDTO;
 import at.localpro.dto.user.CreateUserRequestDTO;
-import at.localpro.dto.user.LoginRequestDTO;
+import at.localpro.dto.user.UserLoginRequestDTO;
 import at.localpro.dto.user.UserDTO;
 
 @Api(value = IUser.V1_USERS)
@@ -36,7 +37,7 @@ public interface IUser {
 	static final String V1_SEARCH = IUser.VERSION + IUser.USERS + "/search";
 	static final String ID = V1_USERS + "/{id}";
 	public static final String V1_LOGIN = ID + "/login";
-	public static final String V1_CHANGE_PASSWORD = ID + "/login";
+	public static final String V1_CHANGE_PASSWORD = ID + "/changepassword";
 
 	// @formatter:off
 	@ApiOperation(value = "Get the user by id", response = UserDTO.class)
@@ -96,7 +97,7 @@ public interface IUser {
 	@Produces(MediaType.APPLICATION_JSON)
 	Object login(
 		@PathParam(value = "id") @Size(min = 20, max = 25) String userId,
-		@NotNull @Valid LoginRequestDTO loginRequest);
+		@NotNull @Valid UserLoginRequestDTO loginRequest);
 
 	@ApiOperation(value = "User change password")
 	@ApiResponses({
@@ -107,7 +108,7 @@ public interface IUser {
 	@PUT
 	@Path(V1_CHANGE_PASSWORD)
 	@Consumes(MediaType.APPLICATION_JSON)
-	void changePassword(
+	Response changePassword(
 		@PathParam(value = "id") @Size(min = 20, max = 25) String userId,
 		@NotNull @Valid ChangePasswordRequestDTO changePasswordRequest);
 

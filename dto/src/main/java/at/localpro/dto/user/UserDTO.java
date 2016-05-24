@@ -12,6 +12,7 @@ public class UserDTO extends BaseDTO {
 	private String password;
 	private Boolean newsletter;
 	private Boolean administrator;
+	private Boolean rememberMe;
 
 	public String getFirstName() {
 		return firstName;
@@ -67,6 +68,14 @@ public class UserDTO extends BaseDTO {
 
 	public void setAdministrator(Boolean administrator) {
 		this.administrator = administrator;
+	}
+
+	public Boolean getRememberMe() {
+		return rememberMe;
+	}
+
+	public void setRememberMe(Boolean rememberMe) {
+		this.rememberMe = rememberMe;
 	}
 
 }
