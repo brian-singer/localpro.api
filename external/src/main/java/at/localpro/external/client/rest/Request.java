@@ -14,6 +14,7 @@ public enum Request {
 	GET_LOCAL_PRO_EVENTS(Request.API + IEvent.V1_LOCAL_PRO_EVENTS),
 	LOCAL_PROS(Request.API + ILocalPro.V1_LOCALPROS),
 	USERS(Request.API + IUser.V1_USERS),
+	CHANGE_PASSWORD(Request.API + IUser.V1_CHANGE_PASSWORD),
 	LOGIN(Request.API + IUser.V1_LOGIN),
 	EVENTS(Request.API + IEvent.V1_EVENTS),
 	PROFILE(Request.API + IProfile.V1_LOCALPRO_PROFILE),

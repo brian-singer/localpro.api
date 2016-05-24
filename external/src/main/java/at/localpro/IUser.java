@@ -20,6 +20,7 @@ import com.wordnik.swagger.annotations.ApiOperation;
 import com.wordnik.swagger.annotations.ApiResponse;
 import com.wordnik.swagger.annotations.ApiResponses;
 
+import at.localpro.dto.user.ChangePasswordRequestDTO;
 import at.localpro.dto.user.CreateUserRequestDTO;
 import at.localpro.dto.user.LoginRequestDTO;
 import at.localpro.dto.user.UserDTO;
@@ -35,6 +36,7 @@ public interface IUser {
 	static final String V1_SEARCH = IUser.VERSION + IUser.USERS + "/search";
 	static final String ID = V1_USERS + "/{id}";
 	public static final String V1_LOGIN = ID + "/login";
+	public static final String V1_CHANGE_PASSWORD = ID + "/login";
 
 	// @formatter:off
 	@ApiOperation(value = "Get the user by id", response = UserDTO.class)
@@ -82,7 +84,7 @@ public interface IUser {
 	@Consumes(MediaType.APPLICATION_JSON)
 	Object add(@NotNull @Valid CreateUserRequestDTO user);
 
-	@ApiOperation(value = "Localpro login")
+	@ApiOperation(value = "User login")
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
@@ -95,5 +97,18 @@ public interface IUser {
 	Object login(
 		@PathParam(value = "id") @Size(min = 20, max = 25) String userId,
 		@NotNull @Valid LoginRequestDTO loginRequest);
+
+	@ApiOperation(value = "User change password")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
+		@ApiResponse(code = 404, message = "error:404, cause:Existing localpro not found", response = Error.class),
+		@ApiResponse(code = 500, message = "error:500, cause:Unknown error occured", response = Error.class) })
+	@PUT
+	@Path(V1_CHANGE_PASSWORD)
+	@Consumes(MediaType.APPLICATION_JSON)
+	void changePassword(
+		@PathParam(value = "id") @Size(min = 20, max = 25) String userId,
+		@NotNull @Valid ChangePasswordRequestDTO changePasswordRequest);
 
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import at.localpro.IUser;
+import at.localpro.dto.user.ChangePasswordRequestDTO;
 import at.localpro.dto.user.CreateUserRequestDTO;
 import at.localpro.dto.user.LoginRequestDTO;
 import at.localpro.external.client.rest.Request;
@@ -46,6 +47,11 @@ public class UserRestClient implements IUser {
 	public Object login(String userId, LoginRequestDTO loginRequest) {
 		client.put(Request.LOGIN.getUri(), loginRequest, userId);
 		return client.getByUri(Request.LOGIN.getUri(), userId);
+	}
+
+	@Override
+	public void changePassword(String userId, ChangePasswordRequestDTO changePasswordRequest) {
+		client.put(Request.CHANGE_PASSWORD.getUri(), changePasswordRequest, userId);
 	}
 
 }
