@@ -9,7 +9,6 @@ public class UserDTO extends BaseDTO {
 	private String lastName;
 	private String email;
 	private LoginSystem loginType;
-	private String password;
 	private Boolean newsletter;
 	private Boolean administrator;
 	private Boolean rememberMe;
@@ -44,14 +43,6 @@ public class UserDTO extends BaseDTO {
 
 	public void setLoginType(LoginSystem loginType) {
 		this.loginType = loginType;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public Boolean getNewsletter() {

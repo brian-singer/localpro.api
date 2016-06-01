@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -38,6 +39,7 @@ public interface IUser {
 	static final String ID = V1_USERS + "/{id}";
 	public static final String V1_LOGIN = ID + "/login";
 	public static final String V1_CHANGE_PASSWORD = ID + "/changepassword";
+	public static final String V1_DELETE = ID + "/delete";
 
 	// @formatter:off
 	@ApiOperation(value = "Get the user by id", response = UserDTO.class)
@@ -103,7 +105,7 @@ public interface IUser {
 	@ApiResponses({
 		@ApiResponse(code = 200, message = "OK"),
 		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
-		@ApiResponse(code = 404, message = "error:404, cause:Existing localpro not found", response = Error.class),
+		@ApiResponse(code = 404, message = "error:404, cause:User not found", response = Error.class),
 		@ApiResponse(code = 500, message = "error:500, cause:Unknown error occured", response = Error.class) })
 	@PUT
 	@Path(V1_CHANGE_PASSWORD)
@@ -111,5 +113,17 @@ public interface IUser {
 	Response changePassword(
 		@PathParam(value = "id") @Size(min = 20, max = 25) String userId,
 		@NotNull @Valid ChangePasswordRequestDTO changePasswordRequest);
+
+	@ApiOperation(value = "Delete user or localpro")
+	@ApiResponses({
+		@ApiResponse(code = 200, message = "OK"),
+		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
+		@ApiResponse(code = 404, message = "error:404, cause:Existing localpro or user not found", response = Error.class),
+		@ApiResponse(code = 500, message = "error:500, cause:Unknown error occured", response = Error.class) })
+	@DELETE
+	@Path(V1_DELETE)
+	@Consumes(MediaType.APPLICATION_JSON)
+	Response delete(
+		@PathParam(value = "id") @Size(min = 20, max = 25) String userId);
 
 }

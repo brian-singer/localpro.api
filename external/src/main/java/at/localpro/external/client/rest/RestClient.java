@@ -93,6 +93,18 @@ public class RestClient {
 		template.put(serverUri, object);
 	}
 
+	public void delete(@NotEmpty String uri, Object... uriParameters) {
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(serverUrl).path(uri);
+		URI serverUri;
+		if (uriParameters == null) {
+			serverUri = builder.build().toUri();
+		} else {
+			serverUri = builder.buildAndExpand(uriParameters).encode().toUri();
+		}
+		log.info("Request url: {} using PUT method", serverUri);
+		template.delete(serverUri);
+	}
+
 	static protected HttpHeaders createHeaderJsonType() {
 		return new HttpHeaders() {
 			private static final long serialVersionUID = -763880167448323421L;

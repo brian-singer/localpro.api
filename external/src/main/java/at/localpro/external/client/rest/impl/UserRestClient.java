@@ -58,4 +58,10 @@ public class UserRestClient implements IUser {
 		return Response.ok().build();
 	}
 
+	@Override
+	public Response delete(String userId) {
+		client.delete(Request.DELETE_USER.getUri(), userId);
+		return Response.ok().build();
+	}
+
 }
