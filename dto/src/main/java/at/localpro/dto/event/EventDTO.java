@@ -5,10 +5,7 @@ import javax.validation.constraints.Size;
 
 import org.joda.time.DateTime;
 
-import com.wordnik.swagger.annotations.ApiModelProperty;
-
-import at.localpro.domain.Sport;
-import at.localpro.domain.event.Location;
+import at.localpro.dto.Sport;
 import at.localpro.dto.common.BaseDTO;
 
 /**
@@ -20,11 +17,9 @@ public class EventDTO extends BaseDTO {
 	private String localProId;
 
 	@NotNull
-	@ApiModelProperty(required = true, dataType = "string")
 	private Sport eventType;
 
 	@NotNull
-	@ApiModelProperty(required = true)
 	private Location location;
 
 	@NotNull

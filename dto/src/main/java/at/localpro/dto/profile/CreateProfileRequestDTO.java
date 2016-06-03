@@ -8,18 +8,15 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotBlank;
 import org.joda.time.DateTime;
 
-import com.wordnik.swagger.annotations.ApiModelProperty;
-
-public class ProfileRequestDTO {
+public class CreateProfileRequestDTO {
 
 	@NotBlank
 	@Size(min = 2, max = 120)
 	private String city;
 
 	@Valid
-	private List<DetailDTO> sportDetails;
+	private List<CreateDetailRequestDTO> sportDetails;
 
-	@ApiModelProperty(value = "The version of the existing LocalPro for consistency checks")
 	private DateTime version;
 
 	public String getCity() {
@@ -30,11 +27,11 @@ public class ProfileRequestDTO {
 		this.city = city;
 	}
 
-	public List<DetailDTO> getSportDetails() {
+	public List<CreateDetailRequestDTO> getSportDetails() {
 		return sportDetails;
 	}
 
-	public void setSportDetails(List<DetailDTO> sportDetails) {
+	public void setSportDetails(List<CreateDetailRequestDTO> sportDetails) {
 		this.sportDetails = sportDetails;
 	}
 

@@ -7,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import at.localpro.IProfile;
-import at.localpro.dto.profile.DetailRequestDTO;
-import at.localpro.dto.profile.ProfileRequestDTO;
+import at.localpro.dto.profile.CreateDetailRequestDTO;
+import at.localpro.dto.profile.CreateProfileRequestDTO;
 import at.localpro.external.client.rest.Request;
 import at.localpro.external.client.rest.RestClient;
 import at.localpro.rest.util.RestUtil;
@@ -26,13 +26,13 @@ public class ProfileRestClient implements IProfile {
 	}
 
 	@Override
-	public Response addProfile(String localProId, ProfileRequestDTO profile) {
+	public Response addProfile(String localProId, CreateProfileRequestDTO profile) {
 		client.put(Request.PROFILE.getUri(), profile, localProId);
 		return RestUtil.createResourceCreatedResponse("/v1/localpros/" + localProId + "/" + "profile");
 	}
 
 	@Override
-	public Response addProfileDetail(String localProId, DetailRequestDTO detail) {
+	public Response addProfileDetail(String localProId, CreateDetailRequestDTO detail) {
 		client.put(Request.PROFILE_DETAIL.getUri(), detail, localProId);
 		return RestUtil.createResourceCreatedResponse("/v1/localpros/" + localProId + "/" + "profile");
 	}

@@ -1,13 +1,13 @@
 package at.localpro.dto;
 
-import at.localpro.dto.common.BaseAuditDTO;
+import at.localpro.dto.common.BaseDTO;
 import at.localpro.dto.profile.ProfileDTO;
 import at.localpro.dto.user.UserDTO;
 
 /**
  * LocalPro. All rights reserved.
  */
-public class LocalProDTO extends BaseAuditDTO {
+public class LocalProDTO extends BaseDTO {
 
 	private UserDTO user;
 

@@ -2,20 +2,12 @@ package at.localpro.dto.profile;
 
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Size;
+import at.localpro.dto.common.BaseDTO;
 
-import org.hibernate.validator.constraints.NotBlank;
+public class ProfileDTO extends BaseDTO {
 
-import at.localpro.dto.common.BaseAuditDTO;
-
-public class ProfileDTO extends BaseAuditDTO {
-
-	@NotBlank
-	@Size(min = 2, max = 120)
 	private String city;
 
-	@Valid
 	private List<DetailDTO> sportDetails;
 
 	public String getCity() {

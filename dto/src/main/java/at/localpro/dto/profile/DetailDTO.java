@@ -4,18 +4,13 @@ import java.math.BigDecimal;
 
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotNull;
 
-import com.wordnik.swagger.annotations.ApiModelProperty;
+import at.localpro.dto.Sport;
+import at.localpro.dto.common.BaseDTO;
 
-import at.localpro.domain.Sport;
+public class DetailDTO extends BaseDTO {
 
-public class DetailDTO {
-
-	@NotNull
-	@ApiModelProperty(required = true, dataType = "string")
 	private Sport sport;
-
 	private String experience;
 
 	@DecimalMin(value = "0")

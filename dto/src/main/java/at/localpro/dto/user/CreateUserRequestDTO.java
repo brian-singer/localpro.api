@@ -6,10 +6,6 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
-import com.wordnik.swagger.annotations.ApiModelProperty;
-
-import at.localpro.domain.user.LoginSystem;
-
 public class CreateUserRequestDTO {
 
 	@NotBlank
@@ -27,7 +23,6 @@ public class CreateUserRequestDTO {
 	private Boolean newsletter;
 	private Boolean administrator;
 
-	@ApiModelProperty(dataType = "string")
 	@NotNull
 	private LoginSystem loginType;
 

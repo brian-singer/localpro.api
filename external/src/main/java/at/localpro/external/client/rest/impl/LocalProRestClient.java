@@ -28,7 +28,7 @@ public class LocalProRestClient implements ILocalPro {
 	}
 
 	@Override
-	public Object add(CreateLocalProReqestDTO localPro) {
+	public Response add(CreateLocalProReqestDTO localPro) {
 		// @formatter:off
 		return Response.status(Status.CREATED).location(client.post(Request.LOCAL_PROS.getUri(), localPro)).build();
 		// @formatter:on

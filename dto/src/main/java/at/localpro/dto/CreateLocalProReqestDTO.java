@@ -3,20 +3,18 @@ package at.localpro.dto;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import com.wordnik.swagger.annotations.ApiParam;
-
-import at.localpro.dto.profile.ProfileDTO;
+import at.localpro.dto.profile.CreateProfileRequestDTO;
 import at.localpro.dto.user.CreateUserRequestDTO;
 
 public class CreateLocalProReqestDTO {
 
 	@NotNull
 	@Valid
-	@ApiParam(required = true)
 	private CreateUserRequestDTO user;
 
+	@NotNull
 	@Valid
-	private ProfileDTO profile;
+	private CreateProfileRequestDTO profile;
 
 	public CreateUserRequestDTO getUser() {
 		return user;
@@ -26,11 +24,11 @@ public class CreateLocalProReqestDTO {
 		this.user = userDTO;
 	}
 
-	public ProfileDTO getProfile() {
+	public CreateProfileRequestDTO getProfile() {
 		return profile;
 	}
 
-	public void setProfile(ProfileDTO profile) {
+	public void setProfile(CreateProfileRequestDTO profile) {
 		this.profile = profile;
 	}
 

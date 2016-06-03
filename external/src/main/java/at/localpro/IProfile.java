@@ -12,16 +12,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
-import com.wordnik.swagger.annotations.ApiResponse;
-import com.wordnik.swagger.annotations.ApiResponses;
-
-import at.localpro.dto.profile.DetailRequestDTO;
+import at.localpro.dto.profile.CreateDetailRequestDTO;
+import at.localpro.dto.profile.CreateProfileRequestDTO;
 import at.localpro.dto.profile.ProfileDTO;
-import at.localpro.dto.profile.ProfileRequestDTO;
 
-@Api(value = IProfile.V1_PROFILE)
 public interface IProfile {
 
 	public static final String V1_PROFILE = ILocalPro.VERSION + ILocalPro.PROS;
@@ -33,42 +27,23 @@ public interface IProfile {
 	public static final String V1_LOCALPRO_PROFILE = V1_PROFILE + ID_PARAM + PROFILE;
 	public static final String V1_LOCALPRO_DETAILS = V1_LOCALPRO_PROFILE + SLASH + DETAILS;
 
-	// @formatter:off
-	@ApiOperation(value = "Get the localpro profile by id", response = ProfileDTO.class)
-	@ApiResponses({
-		@ApiResponse(code = 200, message = "OK"),
-		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
-		@ApiResponse(code = 404, message = "error:404, cause:Profile not found", response = Error.class),
-		@ApiResponse(code = 500, message = "error:500, cause:Unknown error occured", response = Error.class) })
 	@GET
 	@Path(V1_LOCALPRO_PROFILE)
 	@Produces(MediaType.APPLICATION_JSON)
 	Object get(
 			@PathParam(value = "id") @Size(min = 20, max = 25) String localProId);
 
-	@ApiOperation(value = "Put a profile")
-	@ApiResponses({
-		@ApiResponse(code = 201, message = "Resource created"),
-		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
-		@ApiResponse(code = 404, message = "error:404, cause:Existing localpro not found", response = Error.class),
-		@ApiResponse(code = 500, message = "error:500, cause:Unknown error occured", response = Error.class) })
 	@PUT
 	@Path(V1_LOCALPRO_PROFILE)
 	@Consumes(MediaType.APPLICATION_JSON)
 	Response addProfile(
 		@PathParam(value = "id") @Size(min = 20, max = 25) String localProId,
-		@NotNull @Valid ProfileRequestDTO profile);
+		@NotNull @Valid CreateProfileRequestDTO profile);
 
-	@ApiOperation(value = "Put a profile detail")
-	@ApiResponses({
-		@ApiResponse(code = 201, message = "Resource created"),
-		@ApiResponse(code = 400, message = "error:400, cause:Validation Error", response = Error.class),
-		@ApiResponse(code = 404, message = "error:404, cause:Existing profile not found", response = Error.class),
-		@ApiResponse(code = 500, message = "error:500, cause:Unknown error occured", response = Error.class) })
 	@PUT
 	@Path(V1_LOCALPRO_DETAILS)
 	@Consumes(MediaType.APPLICATION_JSON)
 	Response addProfileDetail(
 			@PathParam(value = "id") @Size(min = 20, max = 25) String localProId,
-			@NotNull @Valid DetailRequestDTO detail);
+			@NotNull @Valid CreateDetailRequestDTO detail);
 }

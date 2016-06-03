@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.core.UriBuilder;
 
 import org.apache.commons.collections4.keyvalue.DefaultMapEntry;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -33,8 +34,6 @@ public class RestClient {
 	@Value("${external.server.url}")
 	private String serverUrl;
 
-	private static final String QUERY = "%s={value}";
-
 	static HttpHeaders JSON_HEADER = createHeaderJsonType();
 
 	public Object getByUri(@NotEmpty String uri, Object... uriVariables) {
@@ -47,9 +46,8 @@ public class RestClient {
 	}
 
 	public <T> T queryUnique(@NotEmpty String uri, @NotNull DefaultMapEntry<String, String> pair, ParameterizedTypeReference<T> responseType) {
-		String query = String.format(QUERY, pair.getKey());
-		URI serverUri = UriComponentsBuilder.fromHttpUrl(serverUrl).path(uri).query(query)
-				.buildAndExpand(pair.getValue()).encode().toUri();
+		URI serverUri = UriComponentsBuilder.fromHttpUrl(serverUrl).path(uri).build().toUri();
+		serverUri = UriBuilder.fromUri(serverUri).queryParam(pair.getKey(), pair.getValue()).build();
 
 		HttpEntity<LocalProDTO> httpEntity = new HttpEntity<>(JSON_HEADER);
 		log.info("Request url: {} using GET method", serverUri);
@@ -57,11 +55,12 @@ public class RestClient {
 	}
 
 	public Object query(@NotEmpty String uri, @NotEmpty List<DefaultMapEntry<String, String>> queryParams) {
-		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(serverUrl).path(uri);
+		URI serverUri = UriComponentsBuilder.fromHttpUrl(serverUrl).path(uri).build().toUri();
+		UriBuilder builder = UriBuilder.fromUri(serverUri);
 		for (DefaultMapEntry<String, String> query : queryParams) {
-			builder = builder.queryParam(String.format(QUERY, query.getKey()), query.getValue());
+			builder = builder.queryParam(query.getKey(), query.getValue());
 		}
-		URI serverUri = builder.build().encode().toUri();
+		serverUri = builder.build();
 		HttpEntity<LocalProDTO> httpEntity = new HttpEntity<>(JSON_HEADER);
 		log.info("Request url: {} using GET method", serverUri);
 		ResponseEntity<Object> response = template.exchange(serverUri, HttpMethod.GET, httpEntity,

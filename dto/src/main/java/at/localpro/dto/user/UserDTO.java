@@ -1,6 +1,5 @@
 package at.localpro.dto.user;
 
-import at.localpro.domain.user.LoginSystem;
 import at.localpro.dto.common.BaseDTO;
 
 public class UserDTO extends BaseDTO {
@@ -12,6 +11,7 @@ public class UserDTO extends BaseDTO {
 	private Boolean newsletter;
 	private Boolean administrator;
 	private Boolean rememberMe;
+	private Boolean localPro;
 
 	public String getFirstName() {
 		return firstName;
@@ -67,6 +67,14 @@ public class UserDTO extends BaseDTO {
 
 	public void setRememberMe(Boolean rememberMe) {
 		this.rememberMe = rememberMe;
+	}
+
+	public Boolean getLocalPro() {
+		return localPro;
+	}
+
+	public void setLocalPro(Boolean localPro) {
+		this.localPro = localPro;
 	}
 
 }

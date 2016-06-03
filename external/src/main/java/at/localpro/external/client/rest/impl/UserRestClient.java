@@ -42,14 +42,14 @@ public class UserRestClient implements IUser {
 	}
 
 	@Override
-	public Object add(CreateUserRequestDTO user) {
+	public Response add(CreateUserRequestDTO user) {
 		return Response.status(Status.CREATED).location(client.post(Request.USERS.getUri(), user)).build();
 	}
 
 	@Override
-	public Object login(String userId, UserLoginRequestDTO loginRequest) {
+	public Response login(String userId, UserLoginRequestDTO loginRequest) {
 		client.put(Request.LOGIN.getUri(), loginRequest, userId);
-		return client.getByUri(Request.GET_USER.getUri(), userId);
+		return Response.ok().build();
 	}
 
 	@Override
