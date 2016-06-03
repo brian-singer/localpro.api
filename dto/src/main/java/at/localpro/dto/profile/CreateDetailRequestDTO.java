@@ -7,14 +7,18 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 import at.localpro.dto.Sport;
+import io.swagger.annotations.ApiModelProperty;
 
 public class CreateDetailRequestDTO {
 
 	@NotNull
+	@ApiModelProperty(required = true)
 	private Sport sport;
 
+	@ApiModelProperty(required = true)
 	private String experience;
 
+	@ApiModelProperty(required = true)
 	@DecimalMin(value = "0")
 	@DecimalMax(value = "10")
 	private BigDecimal experienceRating;
