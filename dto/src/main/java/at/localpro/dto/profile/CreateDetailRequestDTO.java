@@ -6,14 +6,13 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
-import at.localpro.dto.Sport;
 import io.swagger.annotations.ApiModelProperty;
 
 public class CreateDetailRequestDTO {
 
 	@NotNull
 	@ApiModelProperty(required = true)
-	private Sport sport;
+	private String sport;
 
 	@ApiModelProperty(required = true)
 	private String experience;
@@ -23,11 +22,11 @@ public class CreateDetailRequestDTO {
 	@DecimalMax(value = "10")
 	private BigDecimal experienceRating;
 
-	public Sport getSport() {
+	public String getSport() {
 		return sport;
 	}
 
-	public void setSport(Sport sport) {
+	public void setSport(String sport) {
 		this.sport = sport;
 	}
 

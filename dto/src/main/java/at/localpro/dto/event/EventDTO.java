@@ -5,7 +5,6 @@ import javax.validation.constraints.Size;
 
 import org.joda.time.DateTime;
 
-import at.localpro.dto.Sport;
 import at.localpro.dto.common.BaseDTO;
 
 /**
@@ -17,7 +16,7 @@ public class EventDTO extends BaseDTO {
 	private String localProId;
 
 	@NotNull
-	private Sport eventType;
+	private String eventType;
 
 	@NotNull
 	private Location location;
@@ -44,11 +43,11 @@ public class EventDTO extends BaseDTO {
 		this.location = location;
 	}
 
-	public Sport getEventType() {
+	public String getEventType() {
 		return eventType;
 	}
 
-	public void setEventType(Sport eventType) {
+	public void setEventType(String eventType) {
 		this.eventType = eventType;
 	}
 

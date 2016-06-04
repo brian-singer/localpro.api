@@ -1,5 +1,7 @@
 package at.localpro.dto.user;
 
+import org.joda.time.DateTime;
+
 import at.localpro.dto.common.BaseDTO;
 
 public class UserDTO extends BaseDTO {
@@ -12,6 +14,7 @@ public class UserDTO extends BaseDTO {
 	private Boolean administrator;
 	private Boolean rememberMe;
 	private Boolean localPro;
+	private DateTime lastLogin;
 
 	public String getFirstName() {
 		return firstName;
@@ -75,6 +78,14 @@ public class UserDTO extends BaseDTO {
 
 	public void setLocalPro(Boolean localPro) {
 		this.localPro = localPro;
+	}
+
+	public DateTime getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(DateTime lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 
 }

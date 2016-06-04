@@ -5,23 +5,22 @@ import java.math.BigDecimal;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 
-import at.localpro.dto.Sport;
 import at.localpro.dto.common.BaseDTO;
 
 public class DetailDTO extends BaseDTO {
 
-	private Sport sport;
+	private String sport;
 	private String experience;
 
 	@DecimalMin(value = "0")
 	@DecimalMax(value = "10")
 	private BigDecimal experienceRating;
 
-	public Sport getSport() {
+	public String getSport() {
 		return sport;
 	}
 
-	public void setSport(Sport sport) {
+	public void setSport(String sport) {
 		this.sport = sport;
 	}
 
