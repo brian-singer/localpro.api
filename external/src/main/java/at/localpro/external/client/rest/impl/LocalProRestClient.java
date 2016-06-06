@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import at.localpro.ILocalPro;
 import at.localpro.dto.CreateLocalProReqestDTO;
 import at.localpro.dto.LocalProDTO;
+import at.localpro.dto.LocalProIdResponse;
 import at.localpro.external.client.rest.Request;
 import at.localpro.external.client.rest.RestClient;
 
@@ -45,6 +46,13 @@ public class LocalProRestClient implements ILocalPro {
 	public Object getAllPros() {
 		// Do not expose
 		return null;
+	}
+
+	@Override
+	public Object getId(String userId) {
+		return client.queryUnique(Request.GET_LOCAL_PRO_ID.getUri(), new DefaultMapEntry<String, String>("userid", userId),
+				new ParameterizedTypeReference<LocalProIdResponse>() {
+				});
 	}
 
 }

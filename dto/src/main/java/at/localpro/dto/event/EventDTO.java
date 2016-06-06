@@ -27,6 +27,8 @@ public class EventDTO extends BaseDTO {
 	@NotNull
 	private DateTime eventEnd;
 
+	private String details;
+
 	public String getLocalProId() {
 		return localProId;
 	}
@@ -65,5 +67,13 @@ public class EventDTO extends BaseDTO {
 
 	public void setEventEnd(DateTime eventEnd) {
 		this.eventEnd = eventEnd;
+	}
+
+	public String getDetails() {
+		return details;
+	}
+
+	public void setDetails(String details) {
+		this.details = details;
 	}
 }

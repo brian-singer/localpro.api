@@ -14,18 +14,17 @@ import javax.ws.rs.core.Response;
 
 import at.localpro.dto.profile.CreateDetailRequestDTO;
 import at.localpro.dto.profile.CreateProfileRequestDTO;
-import at.localpro.dto.profile.ProfileDTO;
 
 public interface IProfile {
 
 	public static final String V1_PROFILE = ILocalPro.VERSION + ILocalPro.PROS;
 	static final String ID_PARAM = "/{id}/";
 	static final String PROFILE = "profile";
-	static final String SLASH = "/";
-	static final String DETAILS = "details";
 
 	public static final String V1_LOCALPRO_PROFILE = V1_PROFILE + ID_PARAM + PROFILE;
-	public static final String V1_LOCALPRO_DETAILS = V1_LOCALPRO_PROFILE + SLASH + DETAILS;
+
+	static final String DETAILS = "/details";
+	public static final String V1_LOCALPRO_DETAILS = V1_LOCALPRO_PROFILE + DETAILS;
 
 	@GET
 	@Path(V1_LOCALPRO_PROFILE)

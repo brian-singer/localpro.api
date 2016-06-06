@@ -16,7 +16,6 @@ import javax.ws.rs.core.MediaType;
 
 import org.joda.time.DateTime;
 
-import at.localpro.dto.error.Error;
 import at.localpro.dto.event.EventDTO;
 
 public interface IEvent {

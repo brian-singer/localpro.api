@@ -25,6 +25,7 @@ public interface ILocalPro {
 
 	static final String PROS = "localpros";
 	static final String V1_SEARCH = ILocalPro.VERSION + ILocalPro.PROS + "/search";
+	static final String V1_GET_ID = ILocalPro.VERSION + ILocalPro.PROS + "/id";
 	static final String ID = V1_LOCALPROS + "/{id}";
 
 	@GET
@@ -43,6 +44,12 @@ public interface ILocalPro {
 	@Produces(MediaType.APPLICATION_JSON)
 	Object getByEmail(
 			@QueryParam(value = "email") @Email String email);
+
+	@GET
+	@Path(V1_LOCALPROS)
+	@Produces(MediaType.APPLICATION_JSON)
+	Object getId(
+			@QueryParam(value = "userid") @Size(min = 20, max = 25) String userId);
 
 	@POST
 	@Path(V1_LOCALPROS)
