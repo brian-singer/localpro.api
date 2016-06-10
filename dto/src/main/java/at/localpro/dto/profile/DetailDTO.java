@@ -2,9 +2,6 @@ package at.localpro.dto.profile;
 
 import java.math.BigDecimal;
 
-import javax.validation.constraints.DecimalMax;
-import javax.validation.constraints.DecimalMin;
-
 import at.localpro.dto.common.BaseDTO;
 
 public class DetailDTO extends BaseDTO {
@@ -12,8 +9,6 @@ public class DetailDTO extends BaseDTO {
 	private String sport;
 	private String experience;
 
-	@DecimalMin(value = "0")
-	@DecimalMax(value = "10")
 	private BigDecimal experienceRating;
 
 	public String getSport() {

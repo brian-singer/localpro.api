@@ -19,7 +19,7 @@ public class EventDTO extends BaseDTO {
 	private String eventType;
 
 	@NotNull
-	private Location location;
+	private LocationDTO location;
 
 	@NotNull
 	private DateTime eventStart;
@@ -37,11 +37,11 @@ public class EventDTO extends BaseDTO {
 		this.localProId = localProId;
 	}
 
-	public Location getLocation() {
+	public LocationDTO getLocation() {
 		return location;
 	}
 
-	public void setLocation(Location location) {
+	public void setLocation(LocationDTO location) {
 		this.location = location;
 	}
 

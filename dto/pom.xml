@@ -5,11 +5,11 @@
 	<parent>
 		<groupId>at.localpro</groupId>
 		<artifactId>localpro</artifactId>
-		<version>1.0.1</version>
+		<version>0.11.0</version>
 	</parent>
 
 	<artifactId>dto</artifactId>
-	<name>LocalPro DTO - Web Data Object</name>
+	<name>LocalPro - Web Data Objects</name>
 	<url>http://localpro.at</url>
 
 	<properties>

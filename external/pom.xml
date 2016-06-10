@@ -5,13 +5,13 @@
 	<parent>
 		<groupId>at.localpro</groupId>
 		<artifactId>localpro</artifactId>
-		<version>1.0.1</version>
+		<version>0.11.0</version>
 	</parent>
 
 	<packaging>jar</packaging>
 
 	<artifactId>external</artifactId>
-	<name>LocalPro External - Orchestration Layer for LocalPro REST Endpoints</name>
+	<name>LocalPro - External REST Endpoints</name>
 	<url>http://localpro.at</url>
 
 	<properties>
@@ -36,7 +36,6 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.4</version>
 		</dependency>
 
 		<dependency>

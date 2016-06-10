@@ -13,8 +13,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.hibernate.validator.constraints.Email;
-
 import at.localpro.dto.CreateLocalProReqestDTO;
 
 public interface ILocalPro {
@@ -42,11 +40,12 @@ public interface ILocalPro {
 	@GET
 	@Path(V1_LOCALPROS)
 	@Produces(MediaType.APPLICATION_JSON)
-	Object getByEmail(
-			@QueryParam(value = "email") @Email String email);
+	Object get(
+			@QueryParam(value = "email") String email,
+			@QueryParam(value = "userid") String userId);
 
 	@GET
-	@Path(V1_LOCALPROS)
+	@Path(V1_GET_ID)
 	@Produces(MediaType.APPLICATION_JSON)
 	Object getId(
 			@QueryParam(value = "userid") @Size(min = 20, max = 25) String userId);

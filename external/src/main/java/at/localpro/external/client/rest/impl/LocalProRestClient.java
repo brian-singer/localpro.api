@@ -5,6 +5,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.collections4.keyvalue.DefaultMapEntry;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import at.localpro.dto.LocalProDTO;
 import at.localpro.dto.LocalProIdResponse;
 import at.localpro.external.client.rest.Request;
 import at.localpro.external.client.rest.RestClient;
+import at.localpro.rest.util.WebServiceResponseBuilder;
 
 @WebService
 @Service
@@ -36,8 +38,16 @@ public class LocalProRestClient implements ILocalPro {
 	}
 
 	@Override
-	public Object getByEmail(String email) {
-		return client.queryUnique(Request.LOCAL_PROS.getUri(), new DefaultMapEntry<String, String>("email", email),
+	public Object get(String email, String userId) {
+		if (StringUtils.isNotBlank(email)) {
+			return client.queryUnique(Request.LOCAL_PROS.getUri(), new DefaultMapEntry<String, String>("email", email),
+					new ParameterizedTypeReference<LocalProDTO>() {
+					});
+		}
+		if (StringUtils.isBlank(userId)) {
+			return WebServiceResponseBuilder.badRequest().build();
+		}
+		return client.queryUnique(Request.LOCAL_PROS.getUri(), new DefaultMapEntry<String, String>("userid", userId),
 				new ParameterizedTypeReference<LocalProDTO>() {
 				});
 	}
@@ -50,7 +60,8 @@ public class LocalProRestClient implements ILocalPro {
 
 	@Override
 	public Object getId(String userId) {
-		return client.queryUnique(Request.GET_LOCAL_PRO_ID.getUri(), new DefaultMapEntry<String, String>("userid", userId),
+		return client.queryUnique(Request.GET_LOCAL_PRO_ID.getUri(),
+				new DefaultMapEntry<String, String>("userid", userId),
 				new ParameterizedTypeReference<LocalProIdResponse>() {
 				});
 	}
