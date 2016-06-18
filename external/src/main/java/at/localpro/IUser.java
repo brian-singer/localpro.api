@@ -23,12 +23,10 @@ import at.localpro.dto.user.UserLoginRequestDTO;
 
 public interface IUser {
 
-	public static final String V1_USERS = IUser.VERSION + IUser.USERS;
-
-	static final String VERSION = "/v1/";
+	public static final String V1_USERS = Version.V1 + IUser.USERS;
 
 	static final String USERS = "users";
-	static final String V1_SEARCH = IUser.VERSION + IUser.USERS + "/search";
+	static final String V1_SEARCH = Version.V1 + IUser.USERS + "/search";
 	static final String ID = V1_USERS + "/{id}";
 	public static final String V1_LOGIN = ID + "/login";
 	public static final String V1_CHANGE_PASSWORD = ID + "/changepassword";

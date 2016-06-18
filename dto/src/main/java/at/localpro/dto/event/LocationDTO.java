@@ -1,14 +1,14 @@
 package at.localpro.dto.event;
 
-public class Location {
+public class LocationDTO {
 
 	private String longitude;
 	private String latitude;
 
-	public Location() {
+	public LocationDTO() {
 	}
 
-	public Location(String longitude, String latitude) {
+	public LocationDTO(String longitude, String latitude) {
 		this.longitude = longitude;
 		this.latitude = latitude;
 	}

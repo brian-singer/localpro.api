@@ -1,5 +1,7 @@
 package at.localpro.dto.event;
 
+import java.util.Set;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -28,6 +30,8 @@ public class EventDTO extends BaseDTO {
 	private DateTime eventEnd;
 
 	private String details;
+
+	private Set<String> users;
 
 	public String getLocalProId() {
 		return localProId;
@@ -75,5 +79,13 @@ public class EventDTO extends BaseDTO {
 
 	public void setDetails(String details) {
 		this.details = details;
+	}
+
+	public Set<String> getUsers() {
+		return users;
+	}
+
+	public void setUsers(Set<String> users) {
+		this.users = users;
 	}
 }

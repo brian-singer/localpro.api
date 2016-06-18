@@ -1,4 +1,4 @@
-package at.localpro.dto.location;
+package at.localpro.dto.event;
 
 import java.math.BigDecimal;
 

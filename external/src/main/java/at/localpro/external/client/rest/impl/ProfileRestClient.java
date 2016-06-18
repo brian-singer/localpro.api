@@ -6,6 +6,7 @@ import javax.ws.rs.core.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import at.localpro.ILocalPro;
 import at.localpro.IProfile;
 import at.localpro.dto.profile.CreateDetailRequestDTO;
 import at.localpro.dto.profile.CreateProfileRequestDTO;
@@ -28,13 +29,13 @@ public class ProfileRestClient implements IProfile {
 	@Override
 	public Response addProfile(String localProId, CreateProfileRequestDTO profile) {
 		client.put(Request.PROFILE.getUri(), profile, localProId);
-		return RestUtil.createResourceCreatedResponse("/v1/localpros/" + localProId + "/" + "profile");
+		return RestUtil.createResourceCreatedResponse(ILocalPro.V1_GET_ID, localProId);
 	}
 
 	@Override
 	public Response addProfileDetail(String localProId, CreateDetailRequestDTO detail) {
 		client.put(Request.PROFILE_DETAIL.getUri(), detail, localProId);
-		return RestUtil.createResourceCreatedResponse("/v1/localpros/" + localProId + "/" + "profile");
+		return RestUtil.createResourceCreatedResponse(IProfile.V1_LOCALPRO_PROFILE, localProId);
 	}
 
 }

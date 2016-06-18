@@ -17,7 +17,7 @@ import at.localpro.dto.profile.CreateProfileRequestDTO;
 
 public interface IProfile {
 
-	public static final String V1_PROFILE = ILocalPro.VERSION + ILocalPro.PROS;
+	public static final String V1_PROFILE = Version.V1 + ILocalPro.PROS;
 	static final String ID_PARAM = "/{id}/";
 	static final String PROFILE = "profile";
 

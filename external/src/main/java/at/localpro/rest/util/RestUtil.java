@@ -1,10 +1,8 @@
 package at.localpro.rest.util;
 
-import java.net.URI;
-import java.net.URISyntaxException;
-
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriBuilder;
 
 import org.joda.time.DateTime;
 
@@ -14,12 +12,8 @@ import at.localpro.rest.exception.RestException;
 
 public abstract class RestUtil {
 
-	public static Response createResourceCreatedResponse(String uri) {
-		try {
-			return Response.created(new URI(uri)).build();
-		} catch (URISyntaxException e) {
-			return Response.ok().build();
-		}
+	public static Response createResourceCreatedResponse(String uri, String resourceId) {
+		return Response.created(UriBuilder.fromUri(uri).build(resourceId)).build();
 	}
 
 	public static void validateDateRangeQuery(DateTime start, DateTime end) throws RestException {

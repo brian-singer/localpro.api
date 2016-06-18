@@ -15,8 +15,10 @@ import org.springframework.stereotype.Service;
 import at.localpro.IEvent;
 import at.localpro.converter.DateTimeParamConverter;
 import at.localpro.dto.event.EventDTO;
+import at.localpro.dto.event.RegisterRequestDTO;
 import at.localpro.external.client.rest.Request;
 import at.localpro.external.client.rest.RestClient;
+import at.localpro.rest.util.RestUtil;
 
 @WebService
 @Service
@@ -70,6 +72,12 @@ public class EventRestClient implements IEvent {
 		// return client.query(Request.EVENTS.getUri(),
 		// Arrays.asList(startQuery, endQuery, longitudeQuery, latitudeQuery,
 		// maxDistanceQuery));
+	}
+
+	@Override
+	public Object register(String id, RegisterRequestDTO register) {
+		client.put(Request.EVENT_REGISTER.getUri(), register, id);
+		return RestUtil.createResourceCreatedResponse(IEvent.ID, id);
 	}
 
 }

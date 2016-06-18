@@ -17,13 +17,11 @@ import at.localpro.dto.CreateLocalProReqestDTO;
 
 public interface ILocalPro {
 
-	public static final String V1_LOCALPROS = ILocalPro.VERSION + ILocalPro.PROS;
-
-	static final String VERSION = "/v1/";
+	public static final String V1_LOCALPROS = Version.V1 + ILocalPro.PROS;
 
 	static final String PROS = "localpros";
-	static final String V1_SEARCH = ILocalPro.VERSION + ILocalPro.PROS + "/search";
-	static final String V1_GET_ID = ILocalPro.VERSION + ILocalPro.PROS + "/id";
+	static final String V1_SEARCH = Version.V1 + ILocalPro.PROS + "/search";
+	static final String V1_GET_ID = Version.V1 + ILocalPro.PROS + "/id";
 	static final String ID = V1_LOCALPROS + "/{id}";
 
 	@GET

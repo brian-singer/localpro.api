@@ -5,18 +5,15 @@ import javax.validation.constraints.NotNull;
 
 import at.localpro.dto.profile.CreateProfileRequestDTO;
 import at.localpro.dto.user.CreateUserRequestDTO;
-import io.swagger.annotations.ApiModelProperty;
 
 public class CreateLocalProReqestDTO {
 
 	@NotNull
 	@Valid
-	@ApiModelProperty(required = true)
 	private CreateUserRequestDTO user;
 
 	@NotNull
 	@Valid
-	@ApiModelProperty(required = true)
 	private CreateProfileRequestDTO profile;
 
 	public CreateUserRequestDTO getUser() {
