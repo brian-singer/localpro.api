@@ -2,6 +2,7 @@ package at.localpro.external.client.rest.impl;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
@@ -10,6 +11,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.commons.collections4.keyvalue.DefaultMapEntry;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
 import at.localpro.IEvent;
@@ -29,7 +31,8 @@ public class EventRestClient implements IEvent {
 
 	@Override
 	public Object get(String eventId) {
-		return client.getByUri(Request.GET_EVENT.getUri(), eventId);
+		return client.getByUri(Request.GET_EVENT.getUri(), new ParameterizedTypeReference<EventDTO>() {
+		}, eventId);
 	}
 
 	@Override
@@ -44,19 +47,21 @@ public class EventRestClient implements IEvent {
 			localProEvent.setEventEnd(DateTime.now().plusHours(24));
 		}
 		return Response.status(Status.CREATED).location(
-				client.post(Request.EVENTS.getUri(), localProEvent)).build();
+				client.post(Request.EVENTS.getUri(), localProEvent).getLocation()).build();
 		// @formatter:on
 	}
 
 	@Override
 	public Object getByLocalPro(String localProId) {
-		return client.getByUri(Request.GET_LOCAL_PRO_EVENTS.getUri(), localProId);
+		return client.getByUri(Request.GET_LOCALPRO_EVENTS.getUri(), new ParameterizedTypeReference<List<EventDTO>>() {
+		}, localProId);
 	}
 
 	@Override
 	public Object filter(DateTime start, DateTime end, BigDecimal latitude, BigDecimal longitude,
 			Integer maxDistanceInKilometers) {
-		DefaultMapEntry<String, String> startQuery = new DefaultMapEntry<>("start", DateTimeParamConverter.format(start));
+		DefaultMapEntry<String, String> startQuery = new DefaultMapEntry<>("start",
+				DateTimeParamConverter.format(start));
 		DefaultMapEntry<String, String> endQuery = new DefaultMapEntry<>("end", DateTimeParamConverter.format(end));
 		// if (latitude == null || longitude == null || maxDistanceInKilometers
 		// == null) {

@@ -3,7 +3,9 @@ package at.localpro.external.client.rest;
 import java.net.URI;
 import java.util.List;
 
+import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriBuilder;
 
 import org.apache.commons.collections4.keyvalue.DefaultMapEntry;
@@ -21,35 +23,40 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import at.localpro.dto.LocalProDTO;
-
 @Validated
 public class RestClient {
+
+	@Value("${external.server.url}")
+	private String serverUrl;
+
+	@Value("${api.key}")
+	private String apiKey;
 
 	@Autowired
 	private RestTemplate template;
 
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
-	@Value("${external.server.url}")
-	private String serverUrl;
+	private HttpHeaders headers;
 
-	static HttpHeaders JSON_HEADER = createHeaderJsonType();
+	@PostConstruct
+	void initHeaders() {
+		headers = createHeaderJsonType();
+	}
 
-	public Object getByUri(@NotEmpty String uri, Object... uriVariables) {
-		HttpEntity<LocalProDTO> httpEntity = new HttpEntity<>(JSON_HEADER);
+	public <T> T getByUri(@NotEmpty String uri, ParameterizedTypeReference<T> responseType, Object... uriVariables) {
 		URI serverUri = UriComponentsBuilder.fromHttpUrl(serverUrl).path(uri).buildAndExpand(uriVariables).encode()
 				.toUri();
+		HttpEntity<?> httpEntity = new HttpEntity<>(headers);
 		log.info("Request url: {} using GET method", serverUri);
-		ResponseEntity<Object> response = template.exchange(serverUri, HttpMethod.GET, httpEntity, Object.class);
-		return response.getBody();
+		return template.exchange(serverUri, HttpMethod.GET, httpEntity, responseType).getBody();
 	}
 
 	public <T> T queryUnique(@NotEmpty String uri, @NotNull DefaultMapEntry<String, String> pair, ParameterizedTypeReference<T> responseType) {
 		URI serverUri = UriComponentsBuilder.fromHttpUrl(serverUrl).path(uri).build().toUri();
 		serverUri = UriBuilder.fromUri(serverUri).queryParam(pair.getKey(), pair.getValue()).build();
 
-		HttpEntity<LocalProDTO> httpEntity = new HttpEntity<>(JSON_HEADER);
+		HttpEntity<?> httpEntity = new HttpEntity<>(headers);
 		log.info("Request url: {} using GET method", serverUri);
 		return template.exchange(serverUri, HttpMethod.GET, httpEntity, responseType).getBody();
 	}
@@ -61,14 +68,14 @@ public class RestClient {
 			builder = builder.queryParam(query.getKey(), query.getValue());
 		}
 		serverUri = builder.build();
-		HttpEntity<LocalProDTO> httpEntity = new HttpEntity<>(JSON_HEADER);
+		HttpEntity<?> httpEntity = new HttpEntity<>(headers);
 		log.info("Request url: {} using GET method", serverUri);
 		ResponseEntity<Object> response = template.exchange(serverUri, HttpMethod.GET, httpEntity,
 				Object.class);
 		return response.getBody();
 	}
 
-	public URI post(@NotEmpty String uri, @NotNull Object object, Object... uriParameters) {
+	public Response post(@NotEmpty String uri, @NotNull Object object, Object... uriParameters) {
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(serverUrl).path(uri);
 		URI serverUri;
 		if (uriParameters == null) {
@@ -77,7 +84,8 @@ public class RestClient {
 			serverUri = builder.buildAndExpand(uriParameters).encode().toUri();
 		}
 		log.info("Request url: {} using POST method", serverUri);
-		return template.postForLocation(serverUri, object);
+		HttpEntity<?> httpEntity = new HttpEntity<>(object, headers);
+		return template.exchange(serverUri, HttpMethod.POST, httpEntity, Response.class).getBody();
 	}
 
 	public void put(@NotEmpty String uri, @NotNull Object object, Object... uriParameters) {
@@ -89,7 +97,8 @@ public class RestClient {
 			serverUri = builder.buildAndExpand(uriParameters).encode().toUri();
 		}
 		log.info("Request url: {} using PUT method", serverUri);
-		template.put(serverUri, object);
+		HttpEntity<?> httpEntity = new HttpEntity<>(object, headers);
+		template.exchange(serverUri, HttpMethod.PUT, httpEntity, Response.class);
 	}
 
 	public void delete(@NotEmpty String uri, Object... uriParameters) {
@@ -100,11 +109,12 @@ public class RestClient {
 		} else {
 			serverUri = builder.buildAndExpand(uriParameters).encode().toUri();
 		}
-		log.info("Request url: {} using PUT method", serverUri);
-		template.delete(serverUri);
+		log.info("Request url: {} using DELETE method", serverUri);
+		HttpEntity<?> httpEntity = new HttpEntity<>(headers);
+		template.exchange(serverUri, HttpMethod.DELETE, httpEntity, Response.class);
 	}
 
-	static protected HttpHeaders createHeaderJsonType() {
+	private HttpHeaders createHeaderJsonType() {
 		return new HttpHeaders() {
 			private static final long serialVersionUID = -763880167448323421L;
 			{
@@ -113,6 +123,7 @@ public class RestClient {
 				// String authHeader = "Basic " + new String(encodedAuth);
 				// set("Authorization", authHeader);
 				set("Content-Type", javax.ws.rs.core.MediaType.APPLICATION_JSON);
+				set("Authorization", apiKey);
 			}
 		};
 	}

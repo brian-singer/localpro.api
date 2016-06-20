@@ -1,7 +1,5 @@
 package at.localpro.dto.user;
 
-import org.joda.time.DateTime;
-
 import at.localpro.dto.common.BaseDTO;
 
 public class UserDTO extends BaseDTO {
@@ -9,12 +7,12 @@ public class UserDTO extends BaseDTO {
 	private String firstName;
 	private String lastName;
 	private String email;
-	private LoginSystem loginType;
+	private String loginType;
 	private Boolean newsletter;
 	private Boolean administrator;
 	private Boolean rememberMe;
 	private Boolean localPro;
-	private DateTime lastLogin;
+	private String lastLogin;
 
 	public String getFirstName() {
 		return firstName;
@@ -38,14 +36,6 @@ public class UserDTO extends BaseDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public LoginSystem getLoginType() {
-		return loginType;
-	}
-
-	public void setLoginType(LoginSystem loginType) {
-		this.loginType = loginType;
 	}
 
 	public Boolean getNewsletter() {
@@ -80,11 +70,19 @@ public class UserDTO extends BaseDTO {
 		this.localPro = localPro;
 	}
 
-	public DateTime getLastLogin() {
+	public String getLoginType() {
+		return loginType;
+	}
+
+	public void setLoginType(String loginType) {
+		this.loginType = loginType;
+	}
+
+	public String getLastLogin() {
 		return lastLogin;
 	}
 
-	public void setLastLogin(DateTime lastLogin) {
+	public void setLastLogin(String lastLogin) {
 		this.lastLogin = lastLogin;
 	}
 

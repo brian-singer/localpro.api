@@ -14,6 +14,7 @@ import at.localpro.ILocalPro;
 import at.localpro.dto.CreateLocalProReqestDTO;
 import at.localpro.dto.LocalProDTO;
 import at.localpro.dto.LocalProIdResponse;
+import at.localpro.dto.SportsDTO;
 import at.localpro.external.client.rest.Request;
 import at.localpro.external.client.rest.RestClient;
 import at.localpro.rest.util.WebServiceResponseBuilder;
@@ -27,27 +28,29 @@ public class LocalProRestClient implements ILocalPro {
 
 	@Override
 	public Object get(String localProId) {
-		return client.getByUri(Request.GET_LOCAL_PRO.getUri(), localProId);
+		return client.getByUri(Request.GET_LOCALPRO.getUri(), new ParameterizedTypeReference<LocalProDTO>() {
+		}, localProId);
 	}
 
 	@Override
 	public Response add(CreateLocalProReqestDTO localPro) {
 		// @formatter:off
-		return Response.status(Status.CREATED).location(client.post(Request.LOCAL_PROS.getUri(), localPro)).build();
+		return Response.status(Status.CREATED).location(client.post(Request.LOCALPROS.getUri(), localPro).getLocation())
+				.build();
 		// @formatter:on
 	}
 
 	@Override
 	public Object get(String email, String userId) {
 		if (StringUtils.isNotBlank(email)) {
-			return client.queryUnique(Request.LOCAL_PROS.getUri(), new DefaultMapEntry<String, String>("email", email),
+			return client.queryUnique(Request.LOCALPROS.getUri(), new DefaultMapEntry<String, String>("email", email),
 					new ParameterizedTypeReference<LocalProDTO>() {
 					});
 		}
 		if (StringUtils.isBlank(userId)) {
 			return WebServiceResponseBuilder.badRequest().build();
 		}
-		return client.queryUnique(Request.LOCAL_PROS.getUri(), new DefaultMapEntry<String, String>("userid", userId),
+		return client.queryUnique(Request.LOCALPROS.getUri(), new DefaultMapEntry<String, String>("userid", userId),
 				new ParameterizedTypeReference<LocalProDTO>() {
 				});
 	}
@@ -60,10 +63,16 @@ public class LocalProRestClient implements ILocalPro {
 
 	@Override
 	public Object getId(String userId) {
-		return client.queryUnique(Request.GET_LOCAL_PRO_ID.getUri(),
+		return client.queryUnique(Request.GET_LOCALPRO_ID.getUri(),
 				new DefaultMapEntry<String, String>("userid", userId),
 				new ParameterizedTypeReference<LocalProIdResponse>() {
 				});
+	}
+
+	@Override
+	public Object getSports(String localProId) {
+		return client.getByUri(Request.GET_LOCALPRO_SPORTS.getUri(), new ParameterizedTypeReference<SportsDTO>() {
+		}, localProId);
 	}
 
 }

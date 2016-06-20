@@ -1,5 +1,7 @@
 package at.localpro.external.client.rest.impl;
 
+import java.util.List;
+
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -26,12 +28,14 @@ public class UserRestClient implements IUser {
 
 	@Override
 	public Object get(String userId) {
-		return client.getByUri(Request.GET_USER.getUri(), userId);
+		return client.getByUri(Request.GET_USER.getUri(), new ParameterizedTypeReference<UserDTO>() {
+		}, userId);
 	}
 
 	@Override
 	public Object getAllUsers() {
-		return client.getByUri(Request.GET_ALL_USERS.getUri());
+		return client.getByUri(Request.GET_ALL_USERS.getUri(), new ParameterizedTypeReference<List<UserDTO>>() {
+		});
 	}
 
 	@Override
@@ -43,7 +47,8 @@ public class UserRestClient implements IUser {
 
 	@Override
 	public Response add(CreateUserRequestDTO user) {
-		return Response.status(Status.CREATED).location(client.post(Request.USERS.getUri(), user)).build();
+		return Response.status(Status.CREATED).location(client.post(Request.USERS.getUri(), user).getLocation())
+				.build();
 	}
 
 	@Override

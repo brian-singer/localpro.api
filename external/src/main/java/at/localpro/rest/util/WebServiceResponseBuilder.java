@@ -21,6 +21,10 @@ public class WebServiceResponseBuilder {
 		return createInternalResponseBuilder(newInstance(), Status.BAD_REQUEST);
 	}
 
+	public static WebServiceResponseBuilder unauthorized() {
+		return createInternalResponseBuilder(newInstance(), Status.UNAUTHORIZED);
+	}
+
 	public static WebServiceResponseBuilder status(int status) {
 		Validate.validState(status != 0);
 		return createInternalResponseBuilder(newInstance(), status);

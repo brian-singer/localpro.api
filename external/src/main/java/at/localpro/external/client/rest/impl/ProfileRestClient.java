@@ -1,13 +1,17 @@
 package at.localpro.external.client.rest.impl;
 
+import java.util.List;
+
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 
 import at.localpro.ILocalPro;
 import at.localpro.IProfile;
+import at.localpro.dto.event.EventDTO;
 import at.localpro.dto.profile.CreateDetailRequestDTO;
 import at.localpro.dto.profile.CreateProfileRequestDTO;
 import at.localpro.external.client.rest.Request;
@@ -23,7 +27,8 @@ public class ProfileRestClient implements IProfile {
 
 	@Override
 	public Object get(String localProId) {
-		return client.getByUri(Request.GET_LOCAL_PRO_EVENTS.getUri(), localProId);
+		return client.getByUri(Request.GET_LOCALPRO_EVENTS.getUri(), new ParameterizedTypeReference<List<EventDTO>>() {
+		}, localProId);
 	}
 
 	@Override

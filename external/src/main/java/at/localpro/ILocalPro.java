@@ -23,11 +23,18 @@ public interface ILocalPro {
 	static final String V1_SEARCH = Version.V1 + ILocalPro.PROS + "/search";
 	static final String V1_GET_ID = Version.V1 + ILocalPro.PROS + "/id";
 	static final String ID = V1_LOCALPROS + "/{id}";
+	static final String SPORTS = ID +"/sports";
 
 	@GET
 	@Path(ID)
 	@Produces(MediaType.APPLICATION_JSON)
 	Object get(
+			@PathParam(value = "id") @Size(min = 20, max = 25) String localProId);
+
+	@GET
+	@Path(SPORTS)
+	@Produces(MediaType.APPLICATION_JSON)
+	Object getSports(
 			@PathParam(value = "id") @Size(min = 20, max = 25) String localProId);
 
 	@GET
