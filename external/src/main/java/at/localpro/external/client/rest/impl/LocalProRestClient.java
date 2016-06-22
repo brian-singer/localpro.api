@@ -2,7 +2,6 @@ package at.localpro.external.client.rest.impl;
 
 import javax.jws.WebService;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.collections4.keyvalue.DefaultMapEntry;
 import org.apache.commons.lang3.StringUtils;
@@ -34,10 +33,9 @@ public class LocalProRestClient implements ILocalPro {
 
 	@Override
 	public Response add(CreateLocalProReqestDTO localPro) {
-		// @formatter:off
-		return Response.status(Status.CREATED).location(client.post(Request.LOCALPROS.getUri(), localPro).getLocation())
-				.build();
-		// @formatter:on
+		// TODO handle respones somewhere :)
+		client.post(Request.LOCALPROS.getUri(), localPro);
+		return WebServiceResponseBuilder.ok().build();
 	}
 
 	@Override

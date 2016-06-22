@@ -21,6 +21,7 @@ public enum Request {
 	LOGIN(Request.API + IUser.V1_LOGIN),
 	EVENTS(Request.API + IEvent.V1_EVENTS),
 	EVENT_REGISTER(Request.API + IEvent.REGISTER),
+	EVENT_LEAVE(Request.API + IEvent.LEAVE),
 	PROFILE(Request.API + IProfile.V1_LOCALPRO_PROFILE),
 	PROFILE_DETAIL(Request.API + IProfile.V1_LOCALPRO_DETAILS);
 

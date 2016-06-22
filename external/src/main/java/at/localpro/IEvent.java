@@ -27,6 +27,7 @@ public interface IEvent {
 	static final String EVENTS = "events";
 	public static final String ID = V1_EVENTS + "/{id}";
 	public static final String REGISTER = ID + "/register";
+	public static final String LEAVE = ID + "/leave";
 	public static final String QUERY_EVENTS = V1_EVENTS + "?start={start}&end={end}";
 	static final String ID_PARAM = "/{id}/";
 	static final String ID_REPLACE = "/%s/";
@@ -54,6 +55,11 @@ public interface IEvent {
 	@Path(REGISTER)
 	@Consumes(MediaType.APPLICATION_JSON)
 	Object register(@PathParam("id") String id, @NotNull @Valid RegisterRequestDTO register);
+
+	@PUT
+	@Path(LEAVE)
+	@Consumes(MediaType.APPLICATION_JSON)
+	Object leave(@PathParam("id") String id, @NotNull @Valid RegisterRequestDTO register);
 
 	@GET
 	@Path(V1_EVENTS)

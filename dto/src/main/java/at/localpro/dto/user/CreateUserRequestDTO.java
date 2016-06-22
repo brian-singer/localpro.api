@@ -4,33 +4,22 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotBlank;
-
-import io.swagger.annotations.ApiModelProperty;
 
 public class CreateUserRequestDTO {
 
-	@NotBlank
 	@Size(min = 1, max = 64)
-	@ApiModelProperty(required = true)
 	private String firstName;
-	@NotBlank
 	@Size(min = 1, max = 64)
-	@ApiModelProperty(required = true)
 	private String lastName;
 	@Email
-	@ApiModelProperty(required = true)
 	private String email;
-	@NotBlank
-	@Size(min = 6, max = 20)
-	@ApiModelProperty(required = true)
+	@Size(min = 3, max = 20)
 	private String password;
 
 	private Boolean newsletter;
 	private Boolean administrator;
 
 	@NotNull
-	@ApiModelProperty(required = true)
 	private LoginSystem loginType;
 
 	public String getFirstName() {

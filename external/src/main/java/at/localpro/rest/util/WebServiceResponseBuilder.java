@@ -13,6 +13,10 @@ public class WebServiceResponseBuilder {
 
 	private at.localpro.dto.error.Error errorResponse;
 
+	public static WebServiceResponseBuilder ok() {
+		return createInternalResponseBuilder(newInstance(), Status.OK, true);
+	}
+
 	public static WebServiceResponseBuilder internalServerError() {
 		return createInternalResponseBuilder(newInstance(), Status.INTERNAL_SERVER_ERROR);
 	}
@@ -22,7 +26,7 @@ public class WebServiceResponseBuilder {
 	}
 
 	public static WebServiceResponseBuilder unauthorized() {
-		return createInternalResponseBuilder(newInstance(), Status.UNAUTHORIZED);
+		return createInternalResponseBuilder(newInstance(), Status.UNAUTHORIZED, true);
 	}
 
 	public static WebServiceResponseBuilder status(int status) {
@@ -44,6 +48,12 @@ public class WebServiceResponseBuilder {
 	private static WebServiceResponseBuilder createInternalResponseBuilder(WebServiceResponseBuilder builder,
 			Status status) {
 		builder.responseBuilder = Response.status(status).type(MediaType.APPLICATION_JSON);
+		return builder;
+	}
+
+	private static WebServiceResponseBuilder createInternalResponseBuilder(WebServiceResponseBuilder builder,
+			Status status, boolean noResponseJson) {
+		builder.responseBuilder = Response.status(status);
 		return builder;
 	}
 

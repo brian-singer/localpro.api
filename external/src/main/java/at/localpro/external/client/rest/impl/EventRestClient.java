@@ -5,8 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.jws.WebService;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.collections4.keyvalue.DefaultMapEntry;
 import org.joda.time.DateTime;
@@ -21,6 +19,7 @@ import at.localpro.dto.event.RegisterRequestDTO;
 import at.localpro.external.client.rest.Request;
 import at.localpro.external.client.rest.RestClient;
 import at.localpro.rest.util.RestUtil;
+import at.localpro.rest.util.WebServiceResponseBuilder;
 
 @WebService
 @Service
@@ -37,7 +36,6 @@ public class EventRestClient implements IEvent {
 
 	@Override
 	public Object add(EventDTO localProEvent) {
-		// @formatter:off
 		if (localProEvent.getEventStart() == null) {
 			localProEvent.setEventStart(DateTime.now());
 			localProEvent.setEventEnd(DateTime.now().plusHours(24));
@@ -46,9 +44,8 @@ public class EventRestClient implements IEvent {
 			localProEvent.setEventStart(DateTime.now());
 			localProEvent.setEventEnd(DateTime.now().plusHours(24));
 		}
-		return Response.status(Status.CREATED).location(
-				client.post(Request.EVENTS.getUri(), localProEvent).getLocation()).build();
-		// @formatter:on
+		client.post(Request.EVENTS.getUri(), localProEvent);
+		return WebServiceResponseBuilder.ok().build();
 	}
 
 	@Override
@@ -82,6 +79,12 @@ public class EventRestClient implements IEvent {
 	@Override
 	public Object register(String id, RegisterRequestDTO register) {
 		client.put(Request.EVENT_REGISTER.getUri(), register, id);
+		return RestUtil.createResourceCreatedResponse(IEvent.ID, id);
+	}
+
+	@Override
+	public Object leave(String id, RegisterRequestDTO register) {
+		client.put(Request.EVENT_LEAVE.getUri(), register, id);
 		return RestUtil.createResourceCreatedResponse(IEvent.ID, id);
 	}
 
